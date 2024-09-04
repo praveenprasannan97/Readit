@@ -1,0 +1,13 @@
+#bgi{
+    background-image: url('/static/bgi.jpg');
+}
+#cbx{
+    height: 850px; 
+    border: 1px solid rgb(58, 58, 58); 
+    border-radius: 10px; 
+    overflow-y: scroll;
+}
+#cmt{
+    border: 1px solid rgb(58, 58, 58);
+    border-radius: 10px;
+}

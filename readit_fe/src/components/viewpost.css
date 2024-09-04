@@ -1,0 +1,49 @@
+#vp-bgi{
+    background-image: url(../images/bgi.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+#vp-ipbg{
+    background-color: rgb(255, 255, 255) !important;
+    color: black;
+}
+
+#vp-head{
+    color: white;
+    text-align: center;
+}
+
+#vp-img{
+    width: 100%;
+    height: 100%;
+}
+
+#vp-description{
+    color: white;
+}
+
+#vp-cbx{
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 750px; 
+    border: 1px solid rgb(177, 177, 177); 
+    border-radius: 10px; 
+    overflow-y: scroll;
+}
+#vp-pcmt{
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(177, 177, 177);
+    border-radius: 10px;
+}
+
+#vp-cmt{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgb(177, 177, 177);
+    border-radius: 10px;
+}
+
+#vp-link{
+    color: white;
+}

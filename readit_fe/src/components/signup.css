@@ -1,0 +1,20 @@
+#signup-mbtn{
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+#signup-heading{
+    text-align: center;
+    padding-top: 30px;
+}
+
+#signup-container{
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#signup-ipbg{
+    background-color: white !important;
+    color: black;
+}

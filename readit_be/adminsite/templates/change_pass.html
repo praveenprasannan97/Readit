@@ -1,0 +1,28 @@
+{% extends 'layout/app_layout.html' %}
+{% block 'content' %}
+{% load static %}
+
+<br><br><br><br><br>
+<div class="row d-flex justify-content-center">
+    <div class="col-4">
+        <div class="container rounded" style="min-height: 350px;">
+            <h1 class="d-flex justify-content-center pt-3">Change Admin Password</h1>
+            <br>
+            <form method="POST">
+                <!-- {% csrf_token %} -->
+                <label for="pass">New Password</label>
+                <input class="form-control mb-4 bg-light border-3" placeholder="Password" type="password" id="pass" name="password">
+                <label for="cpass">Confirm Password</label>
+                <input class="form-control mb-4 bg-light border-3" placeholder="Confirm Password" type="password" id="cpass" name="cpassword">
+                <button class="btn btn-primary mb-4" type="submit">Reset Password</button>
+                <!-- {% if message %}
+                <div id="response">
+                    <p>{{ message.status }}</p>
+                </div>
+                {% endif %} -->
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

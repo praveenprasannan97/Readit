@@ -1,0 +1,41 @@
+{% extends 'layout/app_layout.html' %}
+{% block 'content' %}
+{% load static %}
+
+<br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <p class="fs-5">Current Profile Picture</p>
+            <img src="{% static 'ajeesh.jpg' %}" alt="" style="width: 20px0; height: 300px;">
+            <img src="" alt="">
+        </div>
+        <div class="col-12 col-md-6">
+            <form action="">
+                <label class="fs-5" for="uname">User Name</label>
+                <br>
+                <input type="text" id="uname" name="username" style="width: 100%;" placeholder="Ajeesh">
+                <br>
+                <br>
+                <label class="fs-5" for="uemail">Email</label>
+                <br>
+                <input type="email" id="uemail" name="email" style="width: 100%;" placeholder="ajeesh@gmail.com">
+                <br>
+                <br>
+                <label class="fs-5" for="about">About</label>
+                <br>
+                <textarea name="about" id="about" cols="5" style="width: 100%;" placeholder="i'm ajeesh"></textarea>
+                <br>
+                <br>
+                <label class="fs-5" for="profilepic">Profile Picture</label>
+                <br>
+                <input type="file" id="profilepic" name="profilepic" style="width: 100%;">
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

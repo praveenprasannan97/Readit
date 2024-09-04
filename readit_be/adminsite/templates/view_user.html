@@ -1,0 +1,38 @@
+{% extends 'layout/app_layout.html' %}
+{% block 'content' %}
+{% load static %}
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-12">
+            <h3>User Name</h3>
+            <p>Ajeesh</p>
+            <br>
+            <h3>Email</h3>
+            <p>ajeesh@gmail.com</p>
+            <br>
+            <h3>About</h3>
+            <p>I'm Ajeesh</p>
+            <br>
+            <img src="{% static 'ajeesh.jpg' %}" alt="" style="width: 20px0; height: 300px;">
+        </div>
+        <div class="col-md-3 col-12">
+            <br><br><br>
+            <div>
+                <a href="{% url 'edituser' %}" class="btn btn-info" style="width: 110px;">Edit</a>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-warning" style="width: 110px;">Block</button>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-danger" style="width: 110px;">Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

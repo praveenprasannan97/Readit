@@ -1,0 +1,20 @@
+#login-mbtn{
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+
+#login-heading{
+    text-align: center;
+    padding-top: 30px;
+}
+
+#login-container{
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#login-ipbg{
+    background-color: white !important;
+    color: black;
+}

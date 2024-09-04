@@ -1,0 +1,20 @@
+#forgot-mbtn{
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+
+#forgot-heading{
+    text-align: center;
+    padding-top: 30px;
+}
+
+#forgot-container{
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#forgot-ipbg{
+    background-color: white !important;
+    color: black;
+}

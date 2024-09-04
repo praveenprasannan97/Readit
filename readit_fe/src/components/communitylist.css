@@ -1,0 +1,15 @@
+#cl-btn1{
+    min-width: none;
+    max-width: 150px;
+}
+
+#cl-btn2{
+    width: 150px;
+}
+#cl-tblink{
+    color: white;
+    text-decoration: none;
+}
+#cl-table{
+    text-align: center;
+}

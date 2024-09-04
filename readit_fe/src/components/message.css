@@ -1,0 +1,36 @@
+#ms-heading{
+    color: white;
+    text-align: center;
+}
+
+#ms-msgbox{
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 650px; 
+    border: 1px solid rgb(177, 177, 177); 
+    border-radius: 10px; 
+    overflow-y: scroll;
+    position: relative;
+}
+
+#ms-sent{
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+}
+
+#ms-msg{
+    color: white;
+    width: 75%;
+    background-color: rgba(44, 89, 212, 0.774);
+    border: 1px solid rgb(177, 177, 177); 
+    border-radius: 10px; 
+}
+
+#ms-msg2{
+    color: white;
+    text-align: right;
+    width: 75%;
+    background-color: rgba(19, 70, 36, 0.774);
+    border: 1px solid rgb(177, 177, 177); 
+    border-radius: 10px; 
+}

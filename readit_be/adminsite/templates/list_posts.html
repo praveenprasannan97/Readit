@@ -1,0 +1,66 @@
+{% extends 'layout/app_layout.html' %}
+{% block 'content' %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+      <h1>Manage Posts</h1>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-center">
+        <div class="col-8">
+            <div class="row d-flex justify-content-center">
+                <div class="container col-8">
+                    <form method="get" class="form-inline">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="q" value="{{ query|default:'' }}" placeholder="Search">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-9">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 80%; text-align: center;">Post Title</th>
+                        <th style="width: 20%; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hello World Welcome To Readit</td>
+                        <td>
+                            <a href="{% url 'viewpost' %}" class="btn btn-sm btn-info">View</a>
+                            <button class="btn btn-sm btn-warning">Hide</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hello World Welcome To Readit</td>
+                        <td>
+                            <button class="btn btn-sm btn-info">View</button>
+                            <button class="btn btn-sm btn-warning">Hide</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hello World Welcome To Readit</td>
+                        <td>
+                            <button class="btn btn-sm btn-info">View</button>
+                            <button class="btn btn-sm btn-warning">Hide</button>
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <p>123456 Put Pagination Here</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
