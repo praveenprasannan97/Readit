@@ -32,31 +32,45 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for user in page_obj %}
                     <tr>
-                        <td>Ajeesh</td>
+                        <td>{{user.user_name}}</td>
                         <td>
-                            <a href="{% url 'viewuser' %}" class="btn btn-sm btn-info" style="margin-left: 25px;">View</a>
-                            <button class="btn btn-sm btn-danger" style="margin-left: 25px;">Block</button>
+                            <a href="{% url 'viewuser' user.pk %}" class="btn btn-sm btn-info" style="margin-left: 25px;">View</a>
+                            {% if user.status == 'true' %}
+                            <form method="post" action="{% url 'usertoggle1' user.pk %}" style="display: inline-block;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-warning" style="width: 70px;">Block</button>
+                            </form>
+                            {% else %}
+                            <form method="post" action="{% url 'usertoggle1' user.pk %}" style="display: inline-block;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-success" style="width: 70px;">Unblock</button>
+                            </form>
+                            {% endif %}
                         </td>
                     </tr>
+                    {% empty %}
                     <tr>
-                        <td>Manu</td>
-                        <td>
-                            <button class="btn btn-sm btn-info" style="margin-left: 25px;">View</button>
-                            <button class="btn btn-sm btn-danger" style="margin-left: 25px;">Block</button>
-                        </td>
+                        <td colspan="2" class="text-center">No users found.</td>
                     </tr>
-                    <tr>
-                        <td>Deepu</td>
-                        <td>
-                            <button class="btn btn-sm btn-info" style="margin-left: 25px;">View</button>
-                            <button class="btn btn-sm btn-danger" style="margin-left: 25px;">Block</button>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                <p>123456 Put Pagination Here</p>
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> First </a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Previous </a>
+                {% endif %}
+
+                <span class="current" style="margin-right: 5px; margin-left: 5px;">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Next </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Last </a>
+                {% endif %}
             </div>
         </div>
     </div>

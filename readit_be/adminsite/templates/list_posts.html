@@ -31,34 +31,69 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for topic in page_obj %}
                     <tr>
-                        <td>Hello World Welcome To Readit</td>
+                        <td>{{ topic.topic_title}}</td>
                         <td>
-                            <a href="{% url 'viewpost' %}" class="btn btn-sm btn-info">View</a>
-                            <button class="btn btn-sm btn-warning">Hide</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <a href="{% url 'viewpost' topic.pk %}" class="btn btn-sm btn-info">View</a>
+                            {% if topic.status == 'true' %}
+                            <form method="post" action="{% url 'togglepost1' topic.pk %}" style="display: inline-block;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-warning" style="width: 50px;">Hide</button>
+                            </form>
+                            {% else %}
+                            <form method="post" action="{% url 'togglepost1' topic.pk %}" style="display: inline-block;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-success" style="width: 50px;">Show</button>
+                            </form>
+                            {% endif %}
+                            <!-- delete button -->
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ topic.pk }}">Delete</button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal{{ topic.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ topic.pk }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ topic.pk }}">Delete Post</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete "{{ topic.topic_title}}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <form method="post" action="{% url 'deletepost' topic.pk %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
+                    {% empty %}
                     <tr>
-                        <td>Hello World Welcome To Readit</td>
-                        <td>
-                            <button class="btn btn-sm btn-info">View</button>
-                            <button class="btn btn-sm btn-warning">Hide</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
+                        <td colspan="2" class="text-center">No posts found.</td>
                     </tr>
-                    <tr>
-                        <td>Hello World Welcome To Readit</td>
-                        <td>
-                            <button class="btn btn-sm btn-info">View</button>
-                            <button class="btn btn-sm btn-warning">Hide</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                <p>123456 Put Pagination Here</p>
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> First </a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Previous </a>
+                {% endif %}
+
+                <span class="current" style="margin-right: 5px; margin-left: 5px;">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Next </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}" style="margin-right: 5px; margin-left: 5px;"> Last </a>
+                {% endif %}
             </div>
         </div>
     </div>

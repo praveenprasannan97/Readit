@@ -5,26 +5,70 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-12">
-            <h1>Hello World Welcome To Readit</h1>
+            <h1>{{ post.topic_title }}</h1>
             <br>
             <div class="d-flex justify-content-center">
                 <div class="row">
-                    <div class="col-md-6 col-12">
-                        <img class="img-thumbnail" src="https://www.shutterstock.com/shutterstock/photos/1883859943/display_1500/stock-photo-the-word-example-is-written-on-a-magnifying-glass-on-a-yellow-background-1883859943.jpg" alt="image" style="width: 100%; height: 100%;">
+                    {% if post.topic_image %}
+                    <div class="col-md-6 col-12" style="height: 400px;">
+                        <img class="img-thumbnail" src="{{ post.topic_image.url }}" alt="image" style="height: 400px;">
                     </div>
-                    <div class="col-md-6 col-12">
-                        <iframe width="100%" height="400px" src="https://www.youtube.com/embed/LDU_Txk06tM?si=dGDQm23VLSRN7i_Z&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    {% endif %}
+                    {% if post.topic_video %}
+                    <div class="col-md-6 col-12" style="height: 400px;">
+                        <video controls style="max-width: 100%;">
+                            <source src="{{ post.topic_video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <p>{{post.topic_description}}</p>
+            <br>
+            {% if post.topic_link %}
+            <a href="{{ post.topic_link }}" target="_blank" data-toggle="tooltip" data-placement="top" title="This is an external link, Mightbe malicious. Proceed with caution !">{{ post.topic_link }}</a>
+            {% endif %}
+            <br><br>
+            <p>Post By: <b>{{ post.user_id }}</b></p>
+        </div>
+        
+        <div class="col-md-2 col-12 mb-5">
+            {% if post.status == 'true' %}
+            <form method="post" action="{% url 'togglepost2' post.pk %}" style="display: inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning" style="width: 70px;">Hide</button>
+            </form>
+            {% else %}
+            <form method="post" action="{% url 'togglepost2' post.pk %}" style="display: inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success" style="width: 70px;">Show</button>
+            </form>
+            {% endif %}
+            <!-- delete button -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.pk }}">Delete</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal{{ post.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ post.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ post.pk }}">Delete Post</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete "{{ post.topic_title}}"?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form method="post" action="{% url 'deletepost' post.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <p>This is a scocial media platform where users can write their stories ask questions and share achivements.</p>
-            <br>
-            <a href="https://www.wikipedia.org/">https://www.wikipedia.org/</a>
-            <br><br>
-        </div>
-        <div class="col-md-2 col-12 mb-5">
-            <button class="btn btn-warning" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger">Delete</button>
         </div>
     </div>
 </div>
@@ -32,62 +76,53 @@
     <div class="d-flex justify-content-center">
         <h5>Comments</h5>
     </div>
+    {% for cmnt in comment %}
     <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
+        <p class="mt-3"><b>{{cmnt.user_id}}</b></p>
+        <p>{{cmnt.comment}}</p>
         <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
+            {% if cmnt.status == 'true' %}
+            <form method="post" action="{% url 'togglecmnt' cmnt.pk post.pk %}" style="display: inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning" style="width: 60px;">Hide</button>
+            </form>
+            {% else %}
+            <form method="post" action="{% url 'togglecmnt' cmnt.pk post.pk %}" style="display: inline-block;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success" style="width: 60px;">Show</button>
+            </form>
+            {% endif %}
+            <!-- delete button -->
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ cmnt.pk }}" style="width: 60px;">Delete</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal{{ cmnt.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ cmnt.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ cmnt.pk }}">Delete Post</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete comment from "{{cmnt.user_id}}"?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form method="post" action="{% url 'deletecmnt' cmnt.pk post.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    {% empty %}
     <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
+        <p class="mt-3">No Comments Found</p>
     </div>
-    <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
-    </div>
-    <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
-    </div>
-    <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
-    </div>
-    <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
-    </div>
-    <div class="container-fluid mb-3" id="cmt">
-        <p class="mt-3">Ajeesh</p>
-        <p>hello happy to be here</p>
-        <div class="mb-3 d-flex justify-content-end">
-            <button class="btn btn-warning" type="button" style="margin-right: 10px;">Hide</button>
-            <button class="btn btn-danger" type="button">Delete</button>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

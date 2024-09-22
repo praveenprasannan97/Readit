@@ -5,7 +5,7 @@
 
 #ms-msgbox{
     background-color: rgba(0, 0, 0, 0.3);
-    height: 650px; 
+    height: 70%;
     border: 1px solid rgb(177, 177, 177); 
     border-radius: 10px; 
     overflow-y: scroll;
@@ -13,17 +13,23 @@
 }
 
 #ms-sent{
-    width: 90%;
+    width: 60%;
     position: absolute;
     bottom: 0;
+}
+
+#ms-sip{
+    height: 50px;
 }
 
 #ms-msg{
     color: white;
     width: 75%;
-    background-color: rgba(44, 89, 212, 0.774);
+    background-color: rgba(44, 73, 80, 0.774);
     border: 1px solid rgb(177, 177, 177); 
     border-radius: 10px; 
+    float: left;
+    clear: both;
 }
 
 #ms-msg2{
@@ -33,4 +39,19 @@
     background-color: rgba(19, 70, 36, 0.774);
     border: 1px solid rgb(177, 177, 177); 
     border-radius: 10px; 
+    float: right;
+    clear: both;
+}
+
+#ms-msgbox1 {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 75%;
+    word-wrap: break-word;
 }

@@ -8,28 +8,65 @@
     <div class="row">
         <div class="col-md-9 col-12">
             <h3>User Name</h3>
-            <p>Ajeesh</p>
+            <p>{{user.user_name}}</p>
             <br>
             <h3>Email</h3>
-            <p>ajeesh@gmail.com</p>
+            <p>{{user.email}}</p>
             <br>
             <h3>About</h3>
-            <p>I'm Ajeesh</p>
+            <p>{{user.about}}</p>
             <br>
-            <img src="{% static 'ajeesh.jpg' %}" alt="" style="width: 20px0; height: 300px;">
+            {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="" style="width: 200px; height: 300px;">
+            {% else %}
+            <img src="{% static 'nopic.jpg' %}" alt="" style="width: 200px; height: 300px;">
+            {% endif %}
         </div>
         <div class="col-md-3 col-12">
             <br><br><br>
             <div>
-                <a href="{% url 'edituser' %}" class="btn btn-info" style="width: 110px;">Edit</a>
+                <a href="{% url 'edituser' user.pk %}" class="btn btn-info" style="width: 110px;">Edit</a>
             </div>
             <br>
             <div>
-                <button class="btn btn-warning" style="width: 110px;">Block</button>
+                {% if user.status == 'true' %}
+                <form method="post" action="{% url 'usertoggle2' user.pk %}" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning" style="width: 110px;">Block</button>
+                </form>
+                {% else %}
+                <form method="post" action="{% url 'usertoggle2' user.pk %}" style="display: inline-block;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" style="width: 110px;">Unblock</button>
+                </form>
+                {% endif %}
             </div>
             <br>
             <div>
-                <button class="btn btn-danger" style="width: 110px;">Deactivate</button>
+                <!-- delete button -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ user.pk }}" style="width: 110px;">Deactivate</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteModal{{ user.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ user.pk }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="deleteModalLabel{{ user.pk }}">Deactivate User</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to PERMANENTLY DELETE "{{user.user_name}}"?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form method="post" action="{% url 'deleteuser' user.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -11,3 +11,8 @@
 #mi-table{
     text-align: center;
 }
+
+#mi-tablerow{
+    text-decoration: none;
+    color: white;
+}

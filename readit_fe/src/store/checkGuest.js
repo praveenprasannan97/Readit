@@ -8,7 +8,7 @@ export const checkGuest = (Component) =>{
         var navigate = useNavigate();
         useEffect(()=>{
             if(user){
-                navigate('/movielist');
+                navigate('/home');
             }
         },[user])
         return  <Component {...props}/>;

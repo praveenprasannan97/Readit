@@ -16,26 +16,28 @@ import Viewpost from "./components/viewpost";
 import Messageinbox from "./components/messageinbox";
 import Message from "./components/message";
 import Newcommunity from "./components/newcommunity";
+import CreateConversation from "./components/newconversation";
 
 
 const router = createBrowserRouter([
-    { path: '', element: <App/>},
-    { path: 'signup', element: <Signup/>},
-    { path: 'login', element: <Login/>},
-    { path: 'forgotpass', element: <Forgotpass/>},
-    { path: 'resetpass', element: <Resetpass/>},
-    { path: 'home', element: <Home/>},
-    { path: 'profile', element: <Profile/>},
-    { path: 'editprofile', element: <Editprofile/>},
-    { path: 'changepass', element: <Changepass/>},
-    { path: 'communitylist', element: <Communitylist/>},
-    { path: 'viewcommunity', element: <Viewcommunity/>},
-    { path: 'newtopic', element: <Newtopic/>},
-    { path: 'topicslist', element: <Topicslist/>},
-    { path: 'viewpost', element: <Viewpost/>},
-    { path: 'messageinbox', element:<Messageinbox/>},
-    { path: 'message', element:<Message/>},
-    { path: 'newcommunity', element:<Newcommunity/>},
+    { path: '', element: <App/>},                               //
+    { path: 'signup', element: <Signup/>},                      //
+    { path: 'login', element: <Login/>},                        //
+    { path: 'forgotpass', element: <Forgotpass/>},              //
+    { path: 'resetpass/:token', element: <Resetpass/>},         //
+    { path: 'home', element: <Home/>},                          //
+    { path: 'profile', element: <Profile/>},                    //
+    { path: 'editprofile', element: <Editprofile/>},            //
+    { path: 'changepass', element: <Changepass/>},              //
+    { path: 'communitylist', element: <Communitylist/>},        //
+    { path: 'newcommunity', element:<Newcommunity/>},           //
+    { path: 'viewcommunity/:cmtid', element: <Viewcommunity/>}, //
+    { path: 'newtopic/:cmtid', element: <Newtopic/>},           //
+    { path: 'topicslist', element: <Topicslist/>},              //
+    { path: 'viewpost/:pstid', element: <Viewpost/>},           //
+    { path: 'messageinbox', element:<Messageinbox/>},           //
+    { path: 'newmessage', element: <CreateConversation/>},      //
+    { path: 'message/:conversationId', element:<Message/>},     //
 ]);
 
 export default router;

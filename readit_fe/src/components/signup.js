@@ -1,37 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import bgi from '../images/bgi.jpg'
 import Navbar1 from "./navbar1";
 import { Link, useNavigate } from "react-router-dom";
 import './signup.css'
+import axios from "axios";
 
 function Signup() {
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage1, setErrorMessage1] = useState("");
+    const [email, setEmail] = useState("");
+    const [uname, setUname] = useState("");
+    const [pass1, setPass1] = useState("");
+    const [pass2, setPass2] = useState("");
+
+    const registerUser = async () => {
+        if (pass1 !== pass2) {
+            setErrorMessage("Passwords do not match");
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/signup', {
+                user_name: uname,
+                email: email,
+                password: pass1,
+            });
+            navigate('/login');
+        } catch (error) {
+            setErrorMessage(error.response.data.error);
+        }
+    };
+
     return(
         <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
             <Navbar1/>
             <br/><br/><br/>
-            <div className="row d-flex justify-content-center">
+            <div className="row d-flex justify-content-center mx-auto">
                 <div className="col-lg-6 col-md-8 col-sm-10 col-12">
                     <div className='container-fluid mt-5' id="signup-container">
                             <h1 id="signup-heading">Signup</h1>
+                            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                             <div className="form-group mb-3">
                                 <label class="form-label">Email</label>
-                                <input id="signup-ipbg" type="text" className="form-control" placeholder='Email'/>
+                                <input id="signup-ipbg" type="text" value={email} onInput={(event) => setEmail(event.target.value)} className="form-control" placeholder='Email'/>
                             </div>
                             <div className="form-group mb-3">
                                 <label class="form-label">User Name</label>
-                                <input id="signup-ipbg" type="text" className="form-control" placeholder='User Name'/>
+                                <input id="signup-ipbg" type="text" value={uname} onInput={(event) => setUname(event.target.value)} className="form-control" placeholder='User Name'/>
                             </div>
                             <div className="form-group mb-3">
                                 <label class="form-label">Password</label>
-                                <input id="signup-ipbg" type="password" className="form-control" placeholder='Password'/>
+                                <input id="signup-ipbg" type="password" value={pass1} onInput={(event) => setPass1(event.target.value)} className="form-control" placeholder='Password'/>
                             </div>
                             <div className="form-group mb-3">
                                 <label class="form-label">Confirm Password</label>
-                                <input id="signup-ipbg" type="password" className="form-control" placeholder='Confirm Password'/>
+                                <input id="signup-ipbg" type="password" value={pass2} onInput={(event) => setPass2(event.target.value)} className="form-control" placeholder='Confirm Password'/>
                             </div>
                             <div className="form-group mb-3">
-                                <button className="btn btn-outline-primary" id="signup-mbtn">Signup</button>
-                                <Link to='/login'>Go back to Login</Link>
+                                <button className="btn btn-outline-primary" onClick={registerUser} id="signup-mbtn">Signup</button>
+                                <span>Already have an account? </span><Link to='/login'>Login Here</Link>
                             </div>
                     </div>
                 </div>

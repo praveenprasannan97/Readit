@@ -37,11 +37,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
+    'rest_framework',
+    'corsheaders',
     'adminsite',
     'userapi',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,9 +90,9 @@ WSGI_APPLICATION = 'readit_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',           #Name of the database created for this project
-        'USER': '',                #Enter your mysql username
-        'PASSWORD': '',                #Enter your mysql password
+        'NAME': '',                                                 #Name of the database created for this project
+        'USER': '',                                                 #Enter your mysql username
+        'PASSWORD': '',                                             #Enter your mysql password
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -136,10 +148,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''                #add your email provider
-EMAIL_HOST_USER = ''           #add your user for email
-EMAIL_HOST_PASSWORD = ''       #add your email host password
-EMAIL_PORT = '2525'
+EMAIL_HOST = ''                                                          #add your email provider
+EMAIL_HOST_USER = ''                                                     #add your user for email
+EMAIL_HOST_PASSWORD = ''                                                 #add your email host password
+EMAIL_PORT = ''                                                          #add your email host port
 
 
 LOGIN_URL = '/'
@@ -148,4 +160,4 @@ LOGIN_URL = '/'
 # White listing the localhost:3000 port
 # for React
 # CORS_ORIGIN_WHITELIST = True
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True

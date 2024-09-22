@@ -9,7 +9,6 @@
 <meta name="Description" content="Enter your description here"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
 <title>Readit</title>
 </head>
 <body id="bgi">
@@ -19,7 +18,7 @@
                 <h1 class="d-flex justify-content-center pt-5">Forgot Password</h1>
                 <br>
                 <form action="" method="POST" >
-                    <!-- {% csrf_token %} -->
+                    {% csrf_token %}
                     <label for="ademail">Email</label>
                     <input class="form-control mb-3 bg-light border-3" placeholder="Email" type="email" id="ademail" name="email">
                     <br>
@@ -27,11 +26,11 @@
                     <a href="http://127.0.0.1:8000/resetpass">sent email</a>
                     <a href="http://127.0.0.1:8000/">Go back to login</a>
                 </form>
-                <!-- {% if message %}
+                {% if message %}
                 <div id="response">
                     <p>{{ message.status }}</p>
                 </div>
-                {% endif %} -->
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,6 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
+import { removeUser } from '../store/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
+
 function Navbar2(){
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    var user = useSelector(store=>store.auth.user);
+
+    function authlogout() {
+        if(user){
+            axios.post('http://127.0.0.1:8000/api/logout',{},{headers:{'Authorization':"Token "+ user.token}});
+            dispatch(removeUser());
+            navigate('/login');
+        }
+    }
     return(
         <div>
             <nav className="navbar navbar-expand-lg bg-dark">
@@ -30,7 +46,7 @@ function Navbar2(){
                             <ul className="dropdown-menu bg-dark  dropdown-menu-end">
                                 <li><Link className="nav-link text-white ms-3" to={'/profile'}>Profile</Link></li>
                                 <li><hr className="dropdown-divider"></hr></li>
-                                <li><Link className="nav-link text-white ms-3" to={'/login'}>Logout</Link></li>
+                                <li><Link className="nav-link text-white ms-3" onClick={authlogout}>Logout</Link></li>
                             </ul>
                         </li>
                     </ul>
