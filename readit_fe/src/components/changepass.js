@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './changepass.css';
 import Navbar2 from "./navbar2";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,8 @@ function Changepass(){
     const [password, setPassword] = useState("");
     const [passwordConf, setPasswordConf] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     function changePassword(){
         if (password !== passwordConf) {
@@ -20,7 +22,7 @@ function Changepass(){
             return;
         }
         else
-            axios.post('http://127.0.0.1:8000/api/changepass',{password: password},
+            axios.post(`${API_BASE_URL}/api/changepass`,{password: password},
             {headers:{'Authorization':"Token "+ user.token}
             }).then(response=>{
                 setErrorMessage('');
@@ -43,7 +45,7 @@ function Changepass(){
     }
 
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/><br/>
             <div className="row mx-auto d-flex justify-content-center">

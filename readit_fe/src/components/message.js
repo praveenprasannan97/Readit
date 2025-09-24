@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom"; 
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './message.css';
 import Navbar2 from "./navbar2";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,10 +14,11 @@ function Message() {
     const [messages, setMessages] = useState([]); 
     const [newMessage, setNewMessage] = useState(''); 
     const msgBoxRef = useRef(null); 
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
         // Fetch messages for the conversation
-        axios.post(`http://127.0.0.1:8000/api/messages/${conversationId}`,{}, {
+        axios.post(`${API_BASE_URL}/api/messages/${conversationId}`,{}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ function Message() {
 
     function handleSendMessage() {
         if (newMessage.trim() !== '') {
-            axios.post('http://127.0.0.1:8000/api/createmessage', {
+            axios.post(`${API_BASE_URL}/api/createmessage`, {
                 conversation_id: conversationId,
                 content: newMessage
             },{
@@ -53,7 +54,7 @@ function Message() {
     };
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">

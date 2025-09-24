@@ -1,0 +1,14 @@
+.navbar1-custom {
+  background-color: rgba(0, 0, 0, 0.6); /* black with 60% opacity */
+  backdrop-filter: blur(6px); /* optional: adds a glass effect */
+  border-radius: 25px;
+  position: relative;
+  top: 30px;
+  width: 96%;
+  left: 2%;
+  right: 2%;
+}
+
+#nav1-right{
+  padding-right: 20px;
+}

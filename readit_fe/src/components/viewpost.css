@@ -1,9 +1,10 @@
-#vp-bgi{
-    background-image: url(../images/bgi.jpg);
+/* #vp-bgi{
+    background: linear-gradient(90deg, #1b3d70, #411b7e);
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; 
-}
+    background-attachment: fixed;
+    height: 100vh;
+} */
 
 #vp-ipbg{
     background-color: rgb(255, 255, 255) !important;
@@ -24,24 +25,27 @@
     color: white;
 }
 
-#vp-cbx{
+/* #vp-cbx{
     background-color: rgba(0, 0, 0, 0.3);
-    height: 750px; 
+    min-height: 300px;
+    max-height: 750px; 
     border: 1px solid rgb(177, 177, 177); 
     border-radius: 10px; 
     overflow-y: scroll;
-}
+} */
 #vp-pcmt{
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgb(177, 177, 177);
+    background-color: rgba(0, 0, 0, 0.2);
+    /* border: 1px solid rgb(177, 177, 177); */
     border-radius: 10px;
+    padding: 20px;
 }
 
 #vp-cmt{
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgb(177, 177, 177);
+    background-color: rgba(0, 0, 0, 0.2);
+    /* border: 1px solid rgb(177, 177, 177); */
     border-radius: 10px;
+    padding: 20px;
 }
 
 #vp-link{
@@ -54,4 +58,25 @@
 
 #vp-count{
     color: white;
+}
+
+#scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00000086;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+#scroll-to-top:hover {
+  background: #467ccc83;
 }

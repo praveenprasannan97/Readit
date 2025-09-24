@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar2 from "./navbar2";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import axios from "axios";
 import './home.css';
 import { useSelector } from "react-redux";
@@ -12,13 +12,15 @@ function Home(){
     const [searchquery, setSearchquery] = useState("");
     const [topics, setTopics] = useState([]);
     const [communities, setCommunities] = useState([]);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     useEffect(() => {
         listfilter();
     }, []);
 
     function listfilter(){
-        axios.post("http://127.0.0.1:8000/api/hometopic", {searchquery: searchquery}, {
+        axios.post(`${API_BASE_URL}/api/hometopic`, {searchquery: searchquery}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -27,7 +29,7 @@ function Home(){
         .then(response => setTopics(response.data))
         .catch(error => console.error("Error fetching topics", error));
         
-        axios.post("http://127.0.0.1:8000/api/homecommunity", {searchquery: searchquery}, {
+        axios.post(`${API_BASE_URL}/api/homecommunity`, {searchquery: searchquery}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ function Home(){
     }
 
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">

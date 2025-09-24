@@ -1,0 +1,20 @@
+#pnf-head{
+    color: white;
+    text-align: center;
+    font-size: 200px;
+}
+
+#pnf-body{
+    color: white;
+    text-align: center;
+    font-size: 50px;
+}
+
+#pnf-link{
+    color: white;
+    font-size: 40px;
+    text-decoration: none;
+    display: block;       /* make it block-level */
+    text-align: center;   /* center text inside the block */
+    margin: 0 auto;       /* center block horizontally */
+}

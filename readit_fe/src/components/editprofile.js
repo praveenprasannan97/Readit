@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './editprofile.css';
 import Navbar2 from "./navbar2";
 import { useSelector } from "react-redux";
@@ -17,13 +17,15 @@ function Editprofile() {
         profile_picture: ''
     });
     const [selectedFile, setSelectedFile] = useState(null);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     useEffect(() => {
         fetchProfile();
     }, []);
 
     function fetchProfile() {
-        axios.post('http://127.0.0.1:8000/api/profile', {},{
+        axios.post(`${API_BASE_URL}/api/profile`, {},{
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -60,7 +62,7 @@ function Editprofile() {
             formData.append('profile_picture', selectedFile);
         }
     
-        axios.post('http://127.0.0.1:8000/api/editprofile', formData, {
+        axios.post(`${API_BASE_URL}/api/editprofile`, formData, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'multipart/form-data',
@@ -76,7 +78,7 @@ function Editprofile() {
     }
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2 />
             <br /><br /><br />
             <div className="row mx-auto d-flex justify-content-center">

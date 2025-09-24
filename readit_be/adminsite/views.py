@@ -96,7 +96,7 @@ def list_posts(request):
     else:
         posts = Topics.objects.all().order_by('-date_time')
 
-    paginator = Paginator(posts, 5)
+    paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

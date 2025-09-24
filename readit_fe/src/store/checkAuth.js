@@ -6,11 +6,18 @@ export const checkAuth = (Component) =>{
     function Wrapper(props){
         var user = useSelector(store=>store.auth.user);
         var navigate = useNavigate();
-        useEffect(()=>{
-            if(!user){
-                navigate('/login');
+        // useEffect(()=>{
+        //     if(!user){
+        //         navigate('/login');
+        //         return;
+        //     }
+        // },[user]);
+        useEffect(() => {
+            // Redirect if no user or token
+            if (!user || !user.token) {
+                navigate("/login");
             }
-        },[user]);
+        }, [user, navigate]);
         return <Component {...props}/>;
     }
     return Wrapper;

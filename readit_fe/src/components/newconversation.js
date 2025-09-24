@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar2 from "./navbar2";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './newconversation.css';
 import checkAuth from '../store/checkAuth';
 
@@ -13,6 +13,8 @@ function CreateConversation(){
     const [searchResults, setSearchResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     // Handle search query and API call
     const handleSearch = () => {
@@ -21,7 +23,7 @@ function CreateConversation(){
             return;
         }
         
-        axios.post("http://127.0.0.1:8000/api/searchuser",{searchquery:searchquery}, {
+        axios.post(`${API_BASE_URL}/api/searchuser`,{searchquery:searchquery}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ function CreateConversation(){
 
     const handleCreateConversation = (selectedUserId) => {
         console.log(selectedUserId)
-        axios.post("http://127.0.0.1:8000/api/createconversation", {
+        axios.post(`${API_BASE_URL}/api/createconversation`, {
             participants: [selectedUserId]
         }, {
             headers: {
@@ -58,7 +60,7 @@ function CreateConversation(){
     };
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2 />
             <br/><br/>
             <div className="mt-5">

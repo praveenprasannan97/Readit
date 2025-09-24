@@ -3,13 +3,28 @@
     text-align: center;
 }
 
-#ms-msgbox{
+/* #ms-msgbox{
     background-color: rgba(0, 0, 0, 0.3);
     height: 70%;
-    border: 1px solid rgb(177, 177, 177); 
+    border: 1px solid rgb(177, 177, 177);
     border-radius: 10px; 
     overflow-y: scroll;
     position: relative;
+} */
+
+#ms-msgbox {
+  height: 70%;
+  border-radius: 10px;
+  overflow-y: scroll;
+  position: relative;
+
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+#ms-msgbox::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 #ms-sent{
@@ -25,8 +40,8 @@
 #ms-msg{
     color: white;
     width: 75%;
-    background-color: rgba(44, 73, 80, 0.774);
-    border: 1px solid rgb(177, 177, 177); 
+    background-color: rgba(44, 54, 80, 0.6);
+    /* border: 1px solid rgb(177, 177, 177);  */
     border-radius: 10px; 
     float: left;
     clear: both;
@@ -36,8 +51,8 @@
     color: white;
     text-align: right;
     width: 75%;
-    background-color: rgba(19, 70, 36, 0.774);
-    border: 1px solid rgb(177, 177, 177); 
+    background-color: rgba(138, 192, 218, 0.3);
+    /* border: 1px solid rgb(177, 177, 177);  */
     border-radius: 10px; 
     float: right;
     clear: both;

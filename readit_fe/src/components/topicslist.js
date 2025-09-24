@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './topicslist.css';
 import axios from "axios";
 import Navbar2 from "./navbar2";
@@ -19,13 +19,15 @@ function Topicslist(){
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const topics = topicsin.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(topicsin.length / recordsPerPage)
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     useEffect(() => {
         listfilter()
     }, [selection]);
 
     function listfilter(){
-        axios.post("http://127.0.0.1:8000/api/topics",{searchquery:searchquery,selection:selection}, {
+        axios.post(`${API_BASE_URL}/api/topics`,{searchquery:searchquery,selection:selection}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ function Topicslist(){
         setSelection(selection === 0 ? 1 : 0)
     }
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">

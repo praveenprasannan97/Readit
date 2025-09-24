@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgi from '../images/bgi.jpg'
+// import bgi from '../images/bgi.jpg'
 import Navbar1 from "./navbar1";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -14,9 +14,10 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     function attemptLogin(){
-        axios.post('http://127.0.0.1:8000/api/login',{
+        axios.post(`${API_BASE_URL}/api/login`,{
             email:email,
             password:password
         }).then(response=>{
@@ -38,7 +39,7 @@ function Login() {
         })
     }
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar1/>
             <br/><br/><br/>
             <div className="row d-flex justify-content-center mx-auto">

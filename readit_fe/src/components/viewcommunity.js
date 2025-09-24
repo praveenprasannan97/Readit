@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './viewcommunity.css';
 import Navbar2 from "./navbar2";
 import Pagination from "./pagination";
@@ -18,6 +18,7 @@ function Viewcommunity() {
     const [isMember, setIsMember] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [recordsPerPage] = useState(10);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const posts = postsip.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -30,7 +31,7 @@ function Viewcommunity() {
     }, []);
 
     function fetchdetails() {
-        axios.post("http://127.0.0.1:8000/api/viewcommunity", { cmt_id: cmtid }, {
+        axios.post(`${API_BASE_URL}/api/viewcommunity`, { cmt_id: cmtid }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -41,11 +42,19 @@ function Viewcommunity() {
                 setCommunity(response.data[0]);
             }
         })
-        .catch(error => console.error("Error fetching community details", error));
+        .catch(error => {
+            if (error.response && error.response.status === 404) {
+            // Redirect to Page Not Found
+            navigate("/pagenotfound");
+            return;
+        } else {
+            console.error("Error fetching community details", error);
+        }
+        });
     }
 
     function fetchposts() {
-        axios.post("http://127.0.0.1:8000/api/communitypost", { cmt_id: cmtid, searchquery: searchquery }, {
+        axios.post(`${API_BASE_URL}/api/communitypost`, { cmt_id: cmtid, searchquery: searchquery }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -56,7 +65,7 @@ function Viewcommunity() {
     }
 
     function checkMembership() {
-        axios.post("http://127.0.0.1:8000/api/checkmembership", { cmt_id: cmtid }, {
+        axios.post(`${API_BASE_URL}/api/checkmembership`, { cmt_id: cmtid }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
             }
@@ -68,7 +77,7 @@ function Viewcommunity() {
     }
 
     function joinCommunity() {
-        axios.post("http://127.0.0.1:8000/api/joincommunity", { cmt_id: cmtid }, {
+        axios.post(`${API_BASE_URL}/api/joincommunity`, { cmt_id: cmtid }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
             }
@@ -80,7 +89,7 @@ function Viewcommunity() {
     }
 
     function leaveCommunity() {
-        axios.post("http://127.0.0.1:8000/api/leavecommunity", { cmt_id: cmtid }, {
+        axios.post(`${API_BASE_URL}/api/leavecommunity`, { cmt_id: cmtid }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
             }
@@ -96,7 +105,7 @@ function Viewcommunity() {
     }
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">

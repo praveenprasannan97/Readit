@@ -1,5 +1,5 @@
 import React from "react";
-import bgi from '../images/bgi.jpg'
+// import bgi from '../images/bgi.jpg'
 import Navbar1 from "./navbar1";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
@@ -14,6 +14,8 @@ function Resetpass() {
     const [password, setPassword] = useState("");
     const [passwordConf, setPasswordConf] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     function goToLogin(){
         if (password !== passwordConf) {
@@ -21,7 +23,7 @@ function Resetpass() {
             return;
         }
         else
-            axios.post('http://127.0.0.1:8000/api/reset',{
+            axios.post(`${API_BASE_URL}/api/reset`,{
                 resettoken: token,
                 password: password
             }).then(response=>{
@@ -44,7 +46,7 @@ function Resetpass() {
             })
     }
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar1/>
             <br/><br/><br/>
             <div className="row d-flex justify-content-center mx-auto">

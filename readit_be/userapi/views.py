@@ -179,20 +179,20 @@ def api_topics(request):
     searchquery = request.data.get('searchquery')
     if searchquery is None or searchquery == "":
         if selection == 0:
-            topics = Topics.objects.all().order_by('-date_time')
+            topics = Topics.objects.filter(status='true').order_by('-date_time')
             serializer = TopicsSerializer(topics , many = True)
             return Response(serializer.data)
         else:
-            topics = Topics.objects.filter(user_id=user).order_by('-date_time')
+            topics = Topics.objects.filter(user_id=user, status='true').order_by('-date_time')
             serializer = TopicsSerializer(topics , many = True)
             return Response(serializer.data)
     else:
         if selection == 0:
-            topics = Topics.objects.filter(Q(topic_title__icontains=searchquery)).order_by('-date_time')
+            topics = Topics.objects.filter(Q(topic_title__icontains=searchquery), status='true').order_by('-date_time')
             serializer = TopicsSerializer(topics , many = True)
             return Response(serializer.data)
         else:
-            topics = Topics.objects.filter(Q(topic_title__icontains=searchquery), user_id=user).order_by('-date_time')
+            topics = Topics.objects.filter(Q(topic_title__icontains=searchquery), user_id=user, status='true').order_by('-date_time')
             serializer = TopicsSerializer(topics , many = True)
             return Response(serializer.data)
 
@@ -256,9 +256,14 @@ def api_community(request):
 def api_view_community(request):
 
     cmt_id = request.data.get('cmt_id')
-    community = Community.objects.filter(id__in=cmt_id)
-    serializer = CommunitySerializer(community , many = True)
-    return Response(serializer.data)
+    print(cmt_id)
+    if Community.objects.filter(id=cmt_id).exists():
+        community = Community.objects.filter(id=cmt_id)
+        print(community)
+        serializer = CommunitySerializer(community , many = True)
+        return Response(serializer.data)
+    else:
+        return Response({'error': 'Community Not Found'},status=status.HTTP_404_NOT_FOUND)
 
 
 
@@ -515,7 +520,7 @@ def api_search_users(request):
 def api_new_conversation(request):
 
     participants_ids = request.data.get('participants', [])
-    participants = UsersTable.objects.filter(id__in=participants_ids)
+    participants = UsersTable.objects.filter(id=participants_ids)
     
     if participants.exists():
         conversation = Conversation.objects.create()

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './newcommunity.css';
 import Navbar2 from "./navbar2";
 import axios from "axios";
@@ -13,9 +13,11 @@ function Newcommunity(){
     const [cmty_name, setCmty_name] = useState("");
     const [cmty_description, setCmty_description] = useState("");
     const navigate = useNavigate();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     function createcmty(){
-        axios.post('http://127.0.0.1:8000/api/newcommunity', {
+        axios.post(`${API_BASE_URL}/api/newcommunity`, {
             communityId : cmty_name,
             community_description : cmty_description
         },{
@@ -31,7 +33,7 @@ function Newcommunity(){
     }
 
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="container d-flex justify-content-center">

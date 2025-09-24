@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar2 from "./navbar2";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './newtopic.css';
 import { useSelector } from "react-redux";
 import checkAuth from '../store/checkAuth';
@@ -16,6 +16,8 @@ function Newtopic(){
     const [image, setImage] = useState(null);
     const [video, setVideo] = useState(null);
     const [link, setLink] = useState('');
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +31,7 @@ function Newtopic(){
         formData.append('community_id', cmtid);
 
 
-        axios.post('http://127.0.0.1:8000/api/newtopic', 
+        axios.post(`${API_BASE_URL}/api/newtopic`, 
             formData, 
             {
                 headers: {
@@ -47,7 +49,7 @@ function Newtopic(){
     };
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2 />
             <br /><br />
             <div className="row mx-auto d-flex justify-content-center">

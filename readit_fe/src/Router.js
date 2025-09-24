@@ -17,6 +17,8 @@ import Messageinbox from "./components/messageinbox";
 import Message from "./components/message";
 import Newcommunity from "./components/newcommunity";
 import CreateConversation from "./components/newconversation";
+import pagenotfound from "./components/pagenotfound";
+import Pagenotfound from "./components/pagenotfound";
 
 
 const router = createBrowserRouter([
@@ -38,6 +40,7 @@ const router = createBrowserRouter([
     { path: 'messageinbox', element:<Messageinbox/>},           //
     { path: 'newmessage', element: <CreateConversation/>},      //
     { path: 'message/:conversationId', element:<Message/>},     //
+    { path: 'pagenotfound', element: <Pagenotfound/>},
 ]);
 
 export default router;

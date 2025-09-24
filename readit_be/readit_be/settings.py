@@ -90,10 +90,10 @@ WSGI_APPLICATION = 'readit_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',                                                 #Name of the database created for this project
-        'USER': '',                                                 #Enter your mysql username
-        'PASSWORD': '',                                             #Enter your mysql password
-        'HOST': 'localhost',
+        'NAME': 'readit_db',                                                 #Name of the database created for this project
+        'USER': 'root',                                                 #Enter your mysql username
+        'PASSWORD': 'admin',                                             #Enter your mysql password
+        'HOST': '10.0.0.12',
         'PORT': '3306',
     }
 }
@@ -148,10 +148,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''                                                          #add your email provider
-EMAIL_HOST_USER = ''                                                     #add your user for email
-EMAIL_HOST_PASSWORD = ''                                                 #add your email host password
-EMAIL_PORT = ''                                                          #add your email host port
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'                                                          #add your email provider
+EMAIL_HOST_USER = '95e1f320d34589'                                                               #add your user for email
+EMAIL_HOST_PASSWORD = '1ca0a7f315a0e1'                                                           #add your email host password
+EMAIL_PORT = '2525'                                                                              #add your email host port
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
 
 
 LOGIN_URL = '/'

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgi from '../images/bgi.jpg'
+// import bgi from '../images/bgi.jpg'
 import Navbar1 from "./navbar1";
 import { Link, useNavigate } from "react-router-dom";
 import './signup.css'
@@ -13,6 +13,8 @@ function Signup() {
     const [uname, setUname] = useState("");
     const [pass1, setPass1] = useState("");
     const [pass2, setPass2] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     const registerUser = async () => {
         if (pass1 !== pass2) {
@@ -21,7 +23,7 @@ function Signup() {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/signup', {
+            const response = await axios.post(`${API_BASE_URL}/api/signup`, {
                 user_name: uname,
                 email: email,
                 password: pass1,
@@ -33,7 +35,7 @@ function Signup() {
     };
 
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar1/>
             <br/><br/><br/>
             <div className="row d-flex justify-content-center mx-auto">

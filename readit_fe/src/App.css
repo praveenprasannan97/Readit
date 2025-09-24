@@ -1,43 +1,39 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 #tw{
-  color: white;
-  text-align: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
 }
+
+#hm-wel{
+    background-color: rgba(0, 0, 0, 0.4); /* black with 60% opacity */
+    backdrop-filter: blur(6px); /* optional: adds a glass effect */
+    border-radius: 25px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: relative;
+    top: 20%;
+}
+
+/* #bgimage {
+    background: linear-gradient(90deg, #1b3d70, #411b7e, #1d1c3a, #37047a);
+    background-size: 800% 800%;
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:87% 0%}
+    50%{background-position:14% 100%}
+    100%{background-position:87% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:87% 0%}
+    50%{background-position:14% 100%}
+    100%{background-position:87% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:87% 0%}
+    50%{background-position:14% 100%}
+    100%{background-position:87% 0%}
+} */

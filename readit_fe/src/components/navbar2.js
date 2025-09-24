@@ -4,24 +4,29 @@ import { useDispatch } from "react-redux";
 import { useSelector } from 'react-redux';
 import { removeUser } from '../store/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import './navbar2.css';
 
 function Navbar2(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
     var user = useSelector(store=>store.auth.user);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     function authlogout() {
         if(user){
-            axios.post('http://127.0.0.1:8000/api/logout',{},{headers:{'Authorization':"Token "+ user.token}});
+            axios.post(`${API_BASE_URL}/api/logout`,{},{headers:{'Authorization':"Token "+ user.token}});
             dispatch(removeUser());
             navigate('/login');
         }
     }
     return(
         <div>
-            <nav className="navbar navbar-expand-lg bg-dark">
+            <nav className="navbar navbar-expand-lg navbar2-custom">
             <div className="container-fluid">
-                <h1 className="navbar-brand fs-2 text-white">ReadIt</h1>
+                <h1 className="navbar-brand fs-2 text-white">
+                    <Link className="nav-link text-white ms-3" to={'/home'}>ReadIt</Link>
+                </h1>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i className="fa fa-bars" style={{color:'white'}}></i>
                 </button>
@@ -39,11 +44,11 @@ function Navbar2(){
                         <li className="nav-item">
                             <Link className="nav-link text-white ms-3" to={'/messageinbox'}>Messages</Link>
                         </li>
-                        <li className="nav-item dropdown ms-3">
+                        <li className="nav-item dropdown ms-3" id='nav2-right'>
                             <a className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{color:'white'}}>
                                 <i className="fa fa-user" ></i>
                             </a>
-                            <ul className="dropdown-menu bg-dark  dropdown-menu-end">
+                            <ul className="dropdown-menu dropdown-menu-end" id='custom-dropdown-menu'>
                                 <li><Link className="nav-link text-white ms-3" to={'/profile'}>Profile</Link></li>
                                 <li><hr className="dropdown-divider"></hr></li>
                                 <li><Link className="nav-link text-white ms-3" onClick={authlogout}>Logout</Link></li>

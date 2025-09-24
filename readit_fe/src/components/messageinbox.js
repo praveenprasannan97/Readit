@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './messageinbox.css';
 import Navbar2 from "./navbar2";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,13 +12,15 @@ function Inbox(){
     const [searchquery, setSearchquery] = useState("");
     const [conversations, setConversations] = useState([]);
     const navigate = useNavigate();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     useEffect(() => {
         listfilter()
     }, []);
 
     function listfilter(){
-        axios.post("http://127.0.0.1:8000/api/conversations",{searchquery:searchquery}, {
+        axios.post(`${API_BASE_URL}/api/conversations`,{searchquery:searchquery}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -32,7 +34,8 @@ function Inbox(){
     }
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        // <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">
@@ -65,13 +68,16 @@ function Inbox(){
                     <tbody>
                     {conversations.length > 0 ? (
                         conversations.map((conversation) => (
-                        <tr key={conversation.id}>
+                        <tr
+                        key={conversation.id}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => navigate(`/message/${conversation.id}`)}
+                        >
                             <td>
-                            {conversation.participants.filter(participant => participant.email !== user.email).map((participant) => (
-                                <Link id="mi-tablerow" key={participant.id} to={`/message/${conversation.id}`}>
-                                    {participant.user_name}
-                                </Link>
-                            ))}
+                                {conversation.participants
+                                .filter((participant) => participant.email !== user.email)
+                                .map((participant) => participant.user_name)
+                                .join(", ")}
                             </td>
                         </tr>
                         ))

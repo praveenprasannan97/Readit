@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgi from '../images/bgi.jpg'
+// import bgi from '../images/bgi.jpg'
 import Navbar1 from "./navbar1";
 import { Link, useNavigate} from "react-router-dom";
 import './forgotpass.css'
@@ -9,9 +9,11 @@ function Forgotpass() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     function sentmail(){
-        axios.post('http://127.0.0.1:8000/api/forgotpass',{
+        axios.post(`${API_BASE_URL}/api/forgotpass`,{
             email:email
         }).then(response=>{
             setErrorMessage('');
@@ -27,7 +29,7 @@ function Forgotpass() {
         })
     }
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar1/>
             <br/><br/><br/>
             <div className="row mx-auto d-flex justify-content-center">

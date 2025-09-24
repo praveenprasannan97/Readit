@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import pic from '../images/nopic.jpg';
 import './profile.css';
 import Navbar2 from "./navbar2";
@@ -12,13 +12,15 @@ function Profile() {
     var user = useSelector(store => store.auth.user);
     const navigate = useNavigate();
     const [profileData, setProfileData] = useState("");
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
     useEffect(() => {
         fetchprofile();
     }, []);
 
     function fetchprofile(){
-        axios.post('http://127.0.0.1:8000/api/profile', {},{
+        axios.post(`${API_BASE_URL}/api/profile`, {},{
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -41,7 +43,7 @@ function Profile() {
     }
 
     return (
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2 />
             <br /><br /><br /><br /><br />
             <div className="container row mx-auto">
@@ -60,7 +62,7 @@ function Profile() {
                 <div className="col-md-6 col-12" id="pro-text">
                     <div className="d-flex justify-content-center">
                         <img id="pro-pic" 
-                             src={profileData.profile_picture ? `http://127.0.0.1:8000/${profileData.profile_picture}` : pic} 
+                             src={profileData.profile_picture ? `${API_BASE_URL}/${profileData.profile_picture}` : pic} 
                              alt="Profile" />
                     </div>
                     <br />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import bgi from '../images/bgi.jpg';
+// import bgi from '../images/bgi.jpg';
 import './communitylist.css';
 import Navbar2 from "./navbar2";
 import Pagination from "./pagination";
@@ -11,6 +11,7 @@ import checkAuth from '../store/checkAuth';
 function Communitylist(){
     var user = useSelector(store => store.auth.user);
     const navigate = useNavigate();
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const [selection, setSelection] = useState(0);
     const [searchquery, setSearchquery] = useState("");
     const [communityip, setCommunityip] = useState("");
@@ -26,7 +27,7 @@ function Communitylist(){
     }, [selection]);
 
     function listfilter(){
-        axios.post("http://127.0.0.1:8000/api/community",{searchquery:searchquery,selection:selection}, {
+        axios.post(`${API_BASE_URL}/api/community`,{searchquery:searchquery,selection:selection}, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ function Communitylist(){
     }
 
     return(
-        <div id='bgimage' style={{ backgroundImage: `url(${bgi})` }}>
+        <div id='bgimage'>
             <Navbar2/>
             <br/><br/>
             <div className="d-flex justify-content-center">
