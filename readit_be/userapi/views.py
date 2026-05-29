@@ -534,19 +534,41 @@ def api_new_conversation(request):
 
 
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def api_list_messages(request, id):
+
+#     conversation_id = id
+#     conversation = Conversation.objects.filter(id=conversation_id, participants=request.user).first()
+
+#     if not conversation:
+#         return Response({"error": "No such conversation"}, status=status.HTTP_404_NOT_FOUND)
+
+#     messages = Message.objects.filter(conversation=conversation)
+#     serializer = MessageSerializer(messages, many=True)
+#     return Response(serializer.data)
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def api_list_messages(request, id):
 
     conversation_id = id
+    message_id = request.data.get('message_id')
+    # print(message_id, "111111111111111111111111111111111111")
     conversation = Conversation.objects.filter(id=conversation_id, participants=request.user).first()
 
     if not conversation:
         return Response({"error": "No such conversation"}, status=status.HTTP_404_NOT_FOUND)
 
-    messages = Message.objects.filter(conversation=conversation)
+    if message_id == 0:
+        messages = Message.objects.filter(conversation=conversation).order_by('-id')[:100]
+    else:
+        messages = Message.objects.filter(conversation=conversation, id__lt=message_id).order_by('-id')[:100]
+
+    messages = reversed(messages)
+
     serializer = MessageSerializer(messages, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

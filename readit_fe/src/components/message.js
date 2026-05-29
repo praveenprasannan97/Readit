@@ -15,10 +15,30 @@ function Message() {
     const [newMessage, setNewMessage] = useState(''); 
     const msgBoxRef = useRef(null); 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const formatLocalTime = (timestamp) => {
+        if (!timestamp) return "";
+        const date = new Date(timestamp);
+
+        const options = {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+        };
+
+        const time = new Intl.DateTimeFormat(undefined, options).format(date);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+
+        return `${time.replace(" ", "").toUpperCase()} ${day}/${month}/${year}`;
+        };
+
 
     useEffect(() => {
         // Fetch messages for the conversation
-        axios.post(`${API_BASE_URL}/api/messages/${conversationId}`,{}, {
+        axios.post(`${API_BASE_URL}/api/messages/${conversationId}`,{
+            message_id: 0
+        }, {
             headers: {
                 'Authorization': `Token ${user.token}`,
                 'Content-Type': 'application/json',
@@ -52,14 +72,11 @@ function Message() {
             .catch(error => console.error('Error sending message:', error));
         }
     };
+    
 
     return (
         <div id='bgimage'>
             <Navbar2/>
-            <br/><br/>
-            <div className="d-flex justify-content-center">
-                <h2 id="ms-heading"></h2>
-            </div>
             <br/><br/>
             <div  className="container" id="ms-msgbox"  ref={msgBoxRef}>
                 {messages.map((msg, index) => (
@@ -67,12 +84,12 @@ function Message() {
                         {msg.sender.email === user.email ? (
                             // Sent message
                             <div className=" mb-3 message" id="ms-msg2">
-                                <p id="ms-pw">{msg.sender.user_name}<br/>{msg.content}</p>
+                                <p id="ms-pw">{formatLocalTime(msg.timestamp)} ~~~ {msg.sender.user_name}<br/>{msg.content}</p>
                             </div>
                         ) : (
                             // Received message
                             <div className=" mb-3 message" id="ms-msg">
-                                <p>{msg.sender.user_name}<br/>{msg.content}</p>
+                                <p>{formatLocalTime(msg.timestamp)} ~~~ {msg.sender.user_name}<br/>{msg.content}</p>
                             </div>
                         )}
                     </div>
@@ -85,8 +102,9 @@ function Message() {
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type a message" id="ms-sip"/>
-                    <button class="btn btn-info" type="button" onClick={handleSendMessage}>Sent</button>
+                    onKeyDown={(event) => { if (event.key === 'Enter') { handleSendMessage();}}}
+                    placeholder="Type A Message" id="ms-sip"/>
+                    <button class="btn" type="button" onClick={handleSendMessage} id='ms-btn'>Sent</button>
                 </div>
             </div>
         </div>
